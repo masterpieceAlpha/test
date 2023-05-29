@@ -1,0 +1,122 @@
+$(function () {
+  var timerid;
+  $("#cafeteria_id_number").bind("input change paste", function () {
+    var value = $(this).val();
+    var day = $("#day").val();
+    var meal = $("li.ui-widget-content.ui-selectee.ui-selected").text();
+    if ($(this).data("lastval") != value) {
+      $(this).data("lastval", value);
+      clearTimeout(timerid);
+      timerid = setTimeout(function () {
+        $.ajax({
+          url: "  /estudent/cafeterias/meal_details",
+          data: { id_number: value, day: day, meal: meal },
+          async: true,
+          cache: true,
+          beforeSend: function () {
+            $("#meal_details_loading_indicator").show();
+          },
+          error: function () {
+            $("#meal_details_loading_indicator").hide();
+          },
+          success: function (response) {
+            $("#meal_details").html(response);
+            $("#cafeteria_id_number").val("");
+            $("#cafeteria_id_number").focus();
+            $("#meal_details_loading_indicator").hide();
+          },
+        });
+      }, 500);
+    }
+  });
+
+  $("#meal_details_loading_indicator").hide();
+  $("#selectable").selectable();
+
+  $("#abc_report_type").change(function () {
+    that = $(this).val();
+    if (that == "Daily") {
+      $("#yearly").hide();
+      $("#monthly").hide();
+      $("#daily").show();
+    } else if (that == "Monthly") {
+      $("#yearly").hide();
+      $("#daily").hide();
+      $("#monthly").show();
+    } else if (that == "Yearly") {
+      $("#yearly").show();
+      $("#monthly").hide();
+      $("#daily").hide();
+    }
+  });
+  $("#data_search_type").change(function () {
+    that = $(this).val();
+    if (that == "Id Number") {
+      $("#id_number").show();
+      $("#all").hide();
+    } else if (that == "All") {
+      $("#id_number").hide();
+      $("#all").show();
+    }
+  });
+  $("#report_cafe_id").change(function () {
+    $("#dep_cafe").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+    that = $(this).val();
+    $.ajax({
+      url: " /estudent/cafeterias/get_departments",
+      data: {
+        cafe: that,
+      },
+      async: true,
+      cache: true,
+
+      success: function (response) {
+        $("#dep_cafe").html(response);
+      },
+    });
+  });
+  $("#a_export_by").change(function () {
+    //$("#students_list_display").hide()
+
+    var that = $(this).val();
+
+    if (that == "Cafe") {
+      $("#rl").hide();
+      $("#ca").show();
+    } else if (that == "Religion") {
+      $("#ca").hide();
+      $("#rl").show();
+    } else {
+      $("#rl").hide();
+      $("#ca").hide();
+    }
+  });
+  // $('#abc_department_id').change(function () {
+  //     that = $(this).val()
+  //     $.ajax({
+  //         url: ' /estudent/cafeterias/get_departments',
+  //         data: {
+  //             department: that
+  //
+  //         },
+  //         async: true,
+  //         cache: true,
+  //
+  //         beforeSend: function () {
+  //             $('#cy_cafe').html('<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>');
+  //         },
+  //         error: function () {
+  //             $("#cy_cafe").hide();
+  //         },
+  //
+  //         success: function (response) {
+  //             $("#cy_cafe").html(response);
+  //
+  //         }
+  //
+  //     });
+  //
+  // })
+});

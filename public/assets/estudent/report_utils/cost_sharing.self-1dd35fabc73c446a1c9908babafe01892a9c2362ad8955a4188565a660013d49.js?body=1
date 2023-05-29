@@ -1,0 +1,13 @@
+$(function () {
+  $("#cost_sharing_student_id").autocomplete({
+    source: "/estudent/cost_sharings/load_student",
+    minLength: 3,
+    change: function () {
+      $("loading_indicator").show();
+    },
+    select: function (event, ui) {
+      $("#report_id_number").val(ui.item.student_id);
+      $("loading_indicator").hide();
+    },
+  });
+});

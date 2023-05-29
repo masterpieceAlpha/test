@@ -1,0 +1,15 @@
+$(function () {
+  $("#grade_student").autocomplete({
+    source: "/estudent/grades/load_student",
+    minLength: 3,
+    change: function () {
+      $("#loading_indicator").html(
+        '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+      );
+    },
+    select: function (event, ui) {
+      $("#grade_student_id").val(ui.item.student_id);
+      $("loading_indicator").hide();
+    },
+  });
+});

@@ -1,0 +1,33 @@
+$(function () {
+  var timerid;
+  $("#registration_confirmation_code").bind("input change paste", function () {
+    var reg_code = $(this).val();
+    if ($(this).data("lastval") != reg_code) {
+      $(this).data("lastval", reg_code);
+      clearTimeout(timerid);
+      timerid = setTimeout(function () {
+        $.ajax({
+          url: "confirm",
+          data: { reg_code: reg_code },
+          async: true,
+          cache: true,
+          beforeSend: function () {
+            $("#reg_status").html(
+              '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+            );
+          },
+          error: function () {
+            $("#reg_status").html(
+              '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+            );
+          },
+          success: function (response) {
+            $("#reg_status").html(response);
+            $("#registration_confirmation_code").val("");
+            $("#registration_confirmation_code").focus();
+          },
+        });
+      }, 500);
+    }
+  });
+});

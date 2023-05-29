@@ -1,0 +1,23 @@
+$(function () {
+  var $selection = $("#transfer_transfer_type");
+  $selection.change(function () {
+    var transfer_type = $selection.val();
+    $.ajax({
+      url: "/estudent/transfer/update_view",
+      data: { transfer: transfer_type },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#transfer_to").html(response);
+      },
+    });
+  });
+  $("#loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

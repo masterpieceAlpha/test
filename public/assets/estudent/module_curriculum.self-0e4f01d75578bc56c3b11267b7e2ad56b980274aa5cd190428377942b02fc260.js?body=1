@@ -1,0 +1,11 @@
+$(function () {
+  $("#modulars_select").change(function () {
+    $.ajax({
+      url: "/estudent/modular_curriculum_courses/update_module_courses",
+      data: {
+        modular_id: $("#modulars_select").val(),
+      },
+      dataType: "script",
+    });
+  });
+});

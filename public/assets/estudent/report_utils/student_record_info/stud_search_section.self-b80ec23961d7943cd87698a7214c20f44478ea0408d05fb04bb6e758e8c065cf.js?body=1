@@ -1,0 +1,201 @@
+$(function () {
+    var $selection = $("#assessment_result_class_year_id");
+    var $selection2 = $("#assessment_result_program_id");
+    var $selection3 = $("#assessment_result_academic_semester_id");
+    $selection.change(function () {
+        var classyear = $selection.val();
+        var program = $selection2.val();
+        var academic_semester = $selection3.val();
+        $.ajax({
+            url: ' /estudent/reports/load_view',
+            data: {classyear: classyear, program: program, academic_semester: academic_semester},
+            async: true,
+            cache: true,
+            success: function (response) {
+                $("#section").html(response);
+            }
+        });
+    });
+    $("#loading_indicator")
+        .hide()
+        .ajaxStart(function () {
+            $(this).show();
+        })
+        .ajaxStop(function () {
+            $(this).hide();
+        });
+
+    $('#_registration_id').change(function () {
+
+        var registration_id = $(this).val();
+        var student_id = $("#student_id").val();
+
+        $.ajax({
+            url: ' /estudent/student_record/enrolledcourses',
+            data: {registration_id: registration_id, student_id: student_id},
+            success: function (response) {
+                $("#reslt").html(response);
+            }
+        });
+    });
+    $('#_courses').change(function () {
+
+        var course = $(this).val();
+
+
+        $.ajax({
+            url: ' /estudent/student_record/show_assessment_results',
+            data: {course: course},
+
+
+            success: function (response) {
+                $("#res").html(response);
+            }
+        });
+    })
+
+    $('#course_enrollment_course_id').change(function () {
+
+        var course_enrollment = $(this).val();
+
+
+        $.ajax({
+            url: ' /estudent/student_record/get_assessment_result',
+            data: {course_enrollment: course_enrollment},
+
+
+            success: function (response) {
+                $("#assmtreslt").html(response);
+            }
+        });
+    })
+    $('#abc_course_id').change(function () {
+
+        var course_enrollment = $(this).val();
+
+
+        $.ajax({
+            url: ' /estudent/course_materials/show_materials',
+            data: {v: course_enrollment},
+
+
+            success: function (response) {
+                $("#cm").html(response);
+            }
+        });
+    })
+    $("#srchby").change(function () {
+        //$("#students_list_display").hide()
+        $("#btn_by_name").hide()
+        var that = $(this).val();
+
+        if (that == 'Id') {
+            $("#by_name").hide()
+            $("#by_other").hide()
+            $("#by_id").show()
+            //$("#students_list_display").show()
+            $("#btn_by_name").show()
+            $("#report_name").val('')
+        }
+        else if (that == 'Name') {
+            $("#by_id").hide()
+            $("#by_other").hide()
+            $("#by_name").show()
+            //$("#students_list_display").show()
+            $("#btn_by_name").show()
+            $('#report_id_number').val('')
+
+
+        }
+        else {
+            $("#by_name").hide()
+            $("#by_id").hide()
+            $("#by_other").show()
+
+        }
+    });
+
+    $('#btn_by_name').click(function (e) {
+        e.preventDefault()
+        $('#students_list_display').html('<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>');
+
+        $.ajax({
+            url: ' /estudent/student_record',
+            data: {
+                id_number: $('#report_id_number').val(),
+                name: $("#report_name").val(),
+                status: $("#report_status").val()
+            },
+            async: true,
+            cache: true,
+
+            beforeSend: function () {
+                $("#loading").show();
+            },
+            error: function () {
+                $("#loading").hide();
+            },
+
+            success: function (response) {
+                $("#students_list_display").html(response);
+                $("#loading").hide();
+            }
+
+        });
+    })
+    $('#btn_by_other').click(function (e) {
+        e.preventDefault()
+
+        $('#students_list_display').html('<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>');
+        var academic_year_semester_id = $('#report_academic_year_semester_id').val()
+        var program_id = $('#acs_program').val()
+        var section_id = $('#report_section_id').val()
+        var class_year_id = $('#acs_class_years').val()
+        $.ajax({
+            url: ' /estudent/student_record/detail_list',
+            data: {
+                academic_year_semester_id: academic_year_semester_id,
+                program_id: program_id,
+                class_year_id: class_year_id,
+                section_id: section_id
+            },
+            async: true,
+            cache: true,
+
+            success: function (response) {
+
+                $("#students_list_display").html(response);
+                $("#loading").hide();
+            }
+
+        });
+    })
+    $('#registered_students').click(function (e) {
+        e.preventDefault()
+
+        $('#registered_students_list').html('<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>');
+        var academic_year_semester_id = $('#report_academic_year_semester_id').val()
+        var program_id = $('#acs_program').val()
+        var section_id = $('#report_section_id').val()
+        var class_year_id = $('#acs_class_years').val()
+        $.ajax({
+            url: ' /estudent/assign_section/show_list_of_students',
+            data: {
+                academic_year_semester_id: academic_year_semester_id,
+                program_id: program_id,
+                class_year_id: class_year_id,
+                section_id: section_id
+            },
+            async: true,
+            cache: true,
+
+            success: function (response) {
+                console.log(response)
+                $("#registered_students_list").html(response);
+
+            }
+
+        });
+    })
+});
+

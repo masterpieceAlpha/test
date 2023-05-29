@@ -1,0 +1,25 @@
+$(function () {
+  var $selection = $("#_coll_id");
+  $selection.change(function () {
+    var structure_id = $selection.val();
+    $.ajax({
+      url: "/estudent/estudent/student_record/update_view",
+      data: { college: structure_id },
+      async: true,
+      cache: true,
+      beforeSend: function () {
+        $("#load_department").show();
+      },
+      error: function () {
+        $("#load_department").hide();
+        $("#load_program").hide();
+      },
+      success: function (response) {
+        $("#department").html(response);
+        $("#load_department").hide();
+        $("#load_program").hide();
+      },
+    });
+  });
+  $("#load_department").hide();
+});

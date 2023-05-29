@@ -1,0 +1,24 @@
+$(function () {
+  var $selection = $("#college_to_graduated");
+  $selection.change(function () {
+    var college = $selection.val();
+    $.ajax({
+      url: "/estudent/reports/update_dep_graduated_view",
+      data: { college: college },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#depar_to_graduated").html(response);
+      },
+    });
+  });
+
+  $("#graduated_loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

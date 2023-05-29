@@ -1,0 +1,28 @@
+// Place all the behaviors and hooks related to the matching controller here.
+// All this logic will automatically be available in application.js.
+$(function () {
+  var timerid;
+  $("#payment_id").bind("input change paste", function () {
+    var id = $(this).val();
+
+    if (id.length == 8) {
+      $.ajax({
+        url: "  /estudent/payments/payment",
+        data: { id_number: id },
+        async: true,
+        cache: true,
+        beforeSend: function () {
+          $("#meal_details_loading_indicator").show();
+        },
+        error: function () {
+          $("#meal_details_loading_indicator").hide();
+        },
+        success: function (response) {
+          $("#payment_conf").html(response);
+          $("#payment_id").val("");
+          $("#payment_id").focus();
+        },
+      });
+    }
+  });
+});

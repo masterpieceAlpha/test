@@ -1,0 +1,49 @@
+$(function () {
+    $("#switch").change(function (event) {
+        $("option:selected", $(this)).each(function () {
+            var obj = document.getElementById('switch').value;
+            window.open(obj, "_self");
+        });
+    });
+    $('body').tooltip({selector: "[data-toggle~='tooltip']"})
+
+
+
+
+    $('.etdate').calendarsPicker({
+        calendar: $.calendars.instance('ethiopian', 'am'),
+        changeMonth: true,
+        changeYear: true,
+        timeSeparators: [' ', ':'],
+        showButtonPanel: true,
+        dateFormat: 'yyyy-mm-dd',
+    });
+
+    $(".log_date_picker").datepicker({
+        dateFormat: "yy-m-d",
+        changeMonth: true,
+        changeYear: true,
+        showOtherMonths: true,
+        yearRange: "-100:+0"
+    });
+
+    $(".otherdate").datepicker({
+        dateFormat: "d M, yy",
+        changeMonth: true,
+        changeYear: true,
+        showOtherMonths: true,
+        yearRange: "-100:+0"
+    });
+
+    $(".eth_date").calendarsPicker({calendar: $.calendars.instance('ethiopian', 'am')});
+    $('[data-toggle="tooltip"]').tooltip();
+
+
+});
+// $(document).on('ready page:change', function() {
+//     $('.timepicker').datetimepicker({
+//         pick12HourFormat: true,
+//         pickDate: false,
+//         pickSeconds: false
+//     });
+// });

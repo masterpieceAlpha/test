@@ -1,0 +1,21 @@
+$(function() {
+var $selection=$("#_col_gcr");
+  $selection.change(function() {
+    var college = $selection.val();
+    $.ajax({
+      url: '/estudent/student_record/gcr_update_view',
+      data: {college : college },
+      async: true,
+      cache: true,
+      success: function(response){
+        $("#gcr_departments_list").html(response);
+      }
+    });
+  });
+
+  $("#gcr_loading_indicator")
+    .hide()
+    .ajaxStart(function() { $(this).show(); })
+    .ajaxStop(function() { $(this).hide(); });
+});
+

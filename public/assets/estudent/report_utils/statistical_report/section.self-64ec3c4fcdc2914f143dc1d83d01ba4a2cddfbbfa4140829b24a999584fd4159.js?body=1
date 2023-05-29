@@ -1,0 +1,27 @@
+$(function () {
+  var $selection = $("#prs_class_year");
+  var $selection2 = $("#assessment_result_program_id");
+  var $selection3 = $("#assessment_result_academic_semester_id");
+  $selection.change(function () {
+    var classyear = $selection.val();
+    var program = $selection2.val();
+    var academic_semester = $selection3.val();
+    $.ajax({
+      url: "/estudent/reports/load_view",
+      data: { classyear: classyear, program: program, academic_semester: academic_semester },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#list_section").html(response);
+      },
+    });
+  });
+  $("#setions_loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

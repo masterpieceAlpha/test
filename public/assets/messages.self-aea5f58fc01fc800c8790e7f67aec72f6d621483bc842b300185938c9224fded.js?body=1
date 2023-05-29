@@ -1,0 +1,74 @@
+$(function () {
+    $('#in1').click(function () {
+        // e.preventDefault()
+
+        $.ajax({
+            url: '/messages/inbox',
+            data: {term: 'inbox'},
+            cache: true,
+            async: true,
+            success: function (response) {
+                $('#res').html(response);
+            }
+        });
+    });
+    $('#in2').click(function () {
+        // e.preventDefault()
+
+        $.ajax({
+            url: '/messages/inbox',
+            data: {term: 'sent'},
+            cache: true,
+            async: true,
+            success: function (response) {
+                $('#res').html(response);
+            }
+        });
+    });
+    $('#in3').click(function () {
+        // e.preventDefault()
+
+        $.ajax({
+            url: '/messages/inbox',
+            data: {term: 'compose'},
+            cache: true,
+            async: true,
+            success: function (response) {
+                $('#res').html(response);
+            }
+        });
+    });
+
+    $("#a_course_assignment_id").change(function () {
+        $('#rfrm').html('<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>');
+
+        var ca = $(this).val();
+        $.ajax({
+            url: '/messages/update_view',
+            data: {ca: ca},
+            async: true,
+            cache: true,
+            success: function (response) {
+                $("#rfrm").html(response);
+            }
+        });
+    });
+    $("#a_course_assignment_section_id").change(function () {
+        $('#recip').html('<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>');
+
+        var ca = $(this).val();
+        $.ajax({
+            url: '/messages/update_view',
+            data: {cas: ca},
+            async: true,
+            cache: true,
+            success: function (response) {
+                $("#recip").html(response);
+            }
+        });
+    });
+
+
+});
+
+

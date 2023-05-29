@@ -1,0 +1,51 @@
+$(function () {
+  var $selection = $("#resection_colleges");
+  $selection.change(function () {
+    var college = $selection.val();
+    $("#dep_resec").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    $.ajax({
+      url: "/estudent/reports/update_view",
+      data: { resec_college: college },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#dep_resec").html(response);
+      },
+    });
+  });
+
+  $("#resec_department").change(function () {
+    $("#prog_resec").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    var dep = $(this).val();
+    $.ajax({
+      url: "/estudent/reports/update_view",
+      data: { resec_department: dep },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#prog_resec").html(response);
+      },
+    });
+  });
+  $("#resection_program").change(function () {
+    $("#class_yr_resec").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+    var prog = $(this).val();
+    $.ajax({
+      url: "/estudent/reports/update_view",
+      data: { resc_program_id: prog, ay: $("#report_academic_year_semester_id").val() },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#class_yr_resec").html(response);
+      },
+    });
+  });
+});

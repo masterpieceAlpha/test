@@ -1,0 +1,26 @@
+$(function () {
+  $("#course_add_drop_course_id").change(function () {
+    var ofcourse = $(this).val();
+    $.ajax({
+      url: "/estudent/course_add_drop/update_assignments",
+      data: { offered_course_id: ofcourse },
+      async: false,
+      cache: true,
+      success: function (response) {
+        $("#list_course_assignments").html(response);
+      },
+    });
+  });
+  $("#course_add_drop_course_assignment_id").change(function () {
+    var cassignment = $(this).val();
+    $.ajax({
+      url: "/estudent/course_add_drop/update_sections",
+      data: { course_assignment_id: cassignment },
+      async: false,
+      cache: true,
+      success: function (response) {
+        $("#list_course_add_sections").html(response);
+      },
+    });
+  });
+});

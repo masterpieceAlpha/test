@@ -1,0 +1,121 @@
+/**
+ * Created by Tamiru Hailu  on 6/1thing */
+
+$(function () {
+  $("#grade_change_ays").change(function () {
+    $.ajax({
+      url: " /estudent/grade_changes/update_view",
+      data: {
+        ays: $(this).val(),
+      },
+
+      success: function (response) {
+        $(".prg_display").html(response);
+      },
+    });
+  });
+  $("#grade_change_ca").change(function () {
+    $.ajax({
+      url: " /estudent/grade_changes/update_view",
+      data: {
+        ca: $(this).val(),
+        ays: $("#grade_change_ays").val(),
+      },
+      async: true,
+      cache: true,
+
+      beforeSend: function () {
+        $(".sections").html(
+          '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+        );
+      },
+      error: function (er) {
+        $(".sections").html(er);
+      },
+
+      success: function (response) {
+        $(".sections").html(response);
+      },
+    });
+  });
+  $("#grade_change_cy").change(function () {
+    $.ajax({
+      url: " /estudent/grade_changes/update_view",
+      data: {
+        cy: $(this).val(),
+        term: "cy",
+        ays: $("#grade_change_ays").val(),
+        ca: $("#grade_change_prog").val(),
+      },
+      async: true,
+      cache: true,
+
+      beforeSend: function () {
+        $(".course_sec").html(
+          '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+        );
+      },
+      error: function (er) {
+        $(".course_sec").html(er);
+      },
+
+      success: function (response) {
+        $(".course_sec").html(response);
+      },
+    });
+  });
+  $("#btn_by_other").click(function (e) {
+    e.preventDefault();
+
+    $("#students_list_display").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+    var academic_year_semester_id = $("#report_academic_year_semester_id").val();
+    var program_id = $("#acs_program").val();
+    var section_id = $("#report_section_id").val();
+    var class_year_id = $("#acs_class_years").val();
+    $.ajax({
+      url: " /estudent/student_record/detail_list",
+      data: {
+        academic_year_semester_id: academic_year_semester_id,
+        program_id: program_id,
+        class_year_id: class_year_id,
+        section_id: section_id,
+      },
+      async: true,
+      cache: true,
+
+      success: function (response) {
+        $("#students_list_display").html(response);
+        $("#loading").hide();
+      },
+    });
+  });
+  $("#registered_students").click(function (e) {
+    e.preventDefault();
+
+    $("#registered_students_list").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+    var academic_year_semester_id = $("#report_academic_year_semester_id").val();
+    var program_id = $("#acs_program").val();
+    var section_id = $("#report_section_id").val();
+    var class_year_id = $("#acs_class_years").val();
+    $.ajax({
+      url: " /estudent/assign_section/show_list_of_students",
+      data: {
+        academic_year_semester_id: academic_year_semester_id,
+        program_id: program_id,
+        class_year_id: class_year_id,
+        section_id: section_id,
+      },
+      async: true,
+      cache: true,
+
+      success: function (response) {
+        console.log(response);
+        $("#registered_students_list").html(response);
+      },
+    });
+  });
+});

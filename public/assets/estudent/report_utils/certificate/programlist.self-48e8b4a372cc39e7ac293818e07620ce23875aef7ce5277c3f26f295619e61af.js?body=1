@@ -1,0 +1,15 @@
+$(function () {
+  var $selection = $("#programs_id");
+  $selection.change(function () {
+    var department = $selection.val();
+    $.ajax({
+      url: "/estudent/certificate/update_view",
+      data: { department: department },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#plist").html(response);
+      },
+    });
+  });
+});

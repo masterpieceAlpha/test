@@ -1,0 +1,129 @@
+// Place all the behaviors and hooks related to the matching controller here.
+// All this logic will automatically be available in application.js.
+$(function () {
+  $("#_ays_to_senate").change(function () {
+    var ays = $(this).val();
+    $("#str_senate").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    $.ajax({
+      url: "/estudent/graduation_processes/update_view",
+      data: { ays: ays },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#str_senate").html(response);
+      },
+    });
+  });
+  var $selection = $("#_college_to_senate");
+  $selection.change(function () {
+    var college = $selection.val();
+    $("#dep_cur_course").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    $.ajax({
+      url: "/estudent/graduation_processes/update_view",
+      data: { college_id: college, ays: $("#_ays_to_senate").val() },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#dep_to_senate").html(response);
+      },
+    });
+  });
+
+  $("#senate_department_id").change(function () {
+    $("#prog_display").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    var dep = $(this).val();
+    $.ajax({
+      url: "/estudent/graduation_processes/update_view",
+      data: { department_id: dep, ays: $("#_ays_to_senate").val() },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#prog_to_senate").html(response);
+      },
+    });
+  });
+  $("#_college_to_coo").change(function () {
+    $("#dep_to_coo").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    $.ajax({
+      url: "/estudent/graduation_processes/update_view",
+      data: { col: $(this).val() },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#dep_to_coo").html(response);
+      },
+    });
+  });
+
+  $("#ssc_ays").change(function () {
+    $("#prog_to_ssc").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    $.ajax({
+      url: "/estudent/graduation_processes/update_view",
+      data: { ssc_ays: $(this).val() },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#prog_to_ssc").html(response);
+      },
+    });
+  });
+
+  $("#ssc_ays_can").change(function () {
+    $("#programs_list").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    $.ajax({
+      url: "/estudent/graduation_processes/update_view",
+      data: { ssc_ays_can: $(this).val() },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#programs_list").html(response);
+      },
+    });
+  });
+  $("#ssc_department_id").change(function () {
+    $("#prog_to_ssc").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    $.ajax({
+      url: "/estudent/graduation_processes/update_view",
+      data: { ssc_dep: $(this).val() },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#prog_to_ssc").html(response);
+      },
+    });
+  });
+
+  $("#report_program_id")
+    .add($("#report_curriculum_type"))
+    .change(function () {
+      var program_id = $("#report_program_id").val();
+      var curriculum_type = $("#report_curriculum_type").val();
+
+      if (program_id != "" && curriculum_type != "") {
+        $("#btn1").removeAttr("disabled");
+      } else {
+        jQuery("#btn1").prop("disabled", true);
+      }
+    });
+});

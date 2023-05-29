@@ -1,0 +1,24 @@
+$(function () {
+  var $selection = $("#_col_to_cont_warning");
+  $selection.change(function () {
+    var college = $selection.val();
+    $.ajax({
+      url: "/estudent/reports/continued_warning_view",
+      data: { college: college },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#depts_to_cont_warning").html(response);
+      },
+    });
+  });
+
+  $("#cont_warning_loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

@@ -1,0 +1,30 @@
+$(function () {
+  var $ays_selection = $("#id_card_academic_semester");
+  var $selection = $("#id_card_department");
+  $selection.change(function () {
+    var department_id = $selection.val();
+    var ays = $ays_selection.val();
+    $.ajax({
+      url: "/estudent/id_card/load_programs",
+      data: { department_id: department_id, academic_semester: ays },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#list_programs").html(response);
+      },
+    });
+  });
+  $("#id_card_str").change(function () {
+    var str = $(this).val();
+
+    $.ajax({
+      url: "/estudent/id_card/load_departments",
+      data: { structure_id: str },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#list_depts").html(response);
+      },
+    });
+  });
+});

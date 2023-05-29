@@ -1,0 +1,27 @@
+$(function () {
+  var $selection = $("#_class_year_id");
+  var $selection2 = $("#_program_id");
+  var $selection3 = $("#_academic_semester");
+  $selection.change(function () {
+    var classyear = $selection.val();
+    var program = $selection2.val();
+    var academic_semester = $selection3.val();
+    $.ajax({
+      url: "/estudent/assessment_result/load_sections",
+      data: { class_year: classyear, program: program, academic_semester: academic_semester },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#grade_report_to_hod_sections").html(response);
+      },
+    });
+  });
+  $("#setions_loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

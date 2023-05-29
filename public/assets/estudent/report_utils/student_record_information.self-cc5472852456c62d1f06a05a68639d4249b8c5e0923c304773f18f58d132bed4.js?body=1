@@ -1,0 +1,20 @@
+$(function() {
+var $selection=$("#_department");
+  $selection.change(function() {
+    var department = $selection.val();
+    $.ajax({
+      url: '/estudent/student_record/list_program',
+      data: {department : department },
+      async: true,
+      cache: true,
+      success: function(response){
+        $("#list_program").html(response);
+      }
+    });
+  });
+  $("#loading_indicator")
+    .hide()
+    .ajaxStart(function() { $(this).show(); })
+    .ajaxStop(function() { $(this).hide(); });
+});
+

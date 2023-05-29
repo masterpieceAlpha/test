@@ -1,0 +1,18 @@
+$(function () {
+  var $selection = $("#person_applicant_attributes_admission_id");
+  $selection.change(function () {
+    $("#loading_indicator").show();
+    var admission_id = $selection.val();
+    $.ajax({
+      url: "/estudent/applicants/update_view",
+      data: { admission_id: admission_id },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#transfer_to").html(response);
+        $("#loading_indicator").hide();
+      },
+    });
+  });
+  $("#loading_indicator").hide();
+});

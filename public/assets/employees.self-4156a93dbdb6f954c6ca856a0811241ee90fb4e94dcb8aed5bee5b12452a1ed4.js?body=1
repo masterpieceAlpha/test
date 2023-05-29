@@ -1,0 +1,128 @@
+$(function () {
+    $('#employee_structure_id').change(function () {
+        var structure = $(this).val();
+        $.ajax({
+            url: '/employees/load_structures',
+            data: {structure: structure},
+            cache: true,
+            async: false,
+            beforeSend: function () {
+                $("#departments_loading_indicator").show();
+            },
+            error: function () {
+                $("#departments_loading_indicator").hide();
+            },
+            success: function (response) {
+                $('#departments_display').html(response);
+                $("#departments_loading_indicator").hide();
+            }
+        });
+    });
+
+    $(".catg #employee_category").change(function () {
+        var category = $(this).val();
+        $.ajax({
+            url: '/employees/load_staff_types',
+            data: {category: category},
+            cache: true,
+            async: false,
+            beforeSend: function () {
+                $("#staff_types_loading_indicator").show();
+            },
+            error: function () {
+                $("#staff_types_loading_indicator").hide();
+            },
+            success: function (response) {
+                $('#staff_types_display').html(response);
+                $("#staff_types_loading_indicator").hide();
+            }
+        });
+    });
+
+    $('#employee_staff_type_id').change(function () {
+        var staff_type = $(this).val();
+        $.ajax({
+            url: '/employees/load_ranks',
+            data: {staff_type: staff_type},
+            cache: true,
+            async: false,
+            beforeSend: function () {
+                $("#ranks_loading_indicator").show();
+            },
+            error: function () {
+                $("#ranks_loading_indicator").hide();
+            },
+            success: function (response) {
+                $('#ranks_display').html(response);
+                $("#ranks_loading_indicator").hide();
+            }
+        });
+    });
+
+    $("#departments_loading_indicator").hide();
+    $('#staff_types_loading_indicator').hide();
+    $('#ranks_loading_indicator').hide();
+    //employee filter
+    $("#src_emp_by").change(function () {
+
+
+        //$("#students_list_display").hide()
+        $("#btn_by_name").hide()
+        var that = $(this).val();
+
+        if (that == 'Id') {
+            $("#by_name").hide()
+            $("#by_other").hide()
+            $("#by_id").show()
+            //$("#students_list_display").show()
+            $("#btn_by_name").show()
+            $("#report_name").val('')
+        }
+        else if (that == 'Name') {
+            $("#by_id").hide()
+            $("#by_other").hide()
+            $("#by_name").show()
+            //$("#students_list_display").show()
+            $("#btn_by_name").show()
+            $('#report_id_number').val('')
+
+
+        }
+        else {
+            $("#by_name").hide()
+            $("#by_id").hide()
+            $("#by_other").show()
+
+        }
+    });
+    $('#srcrhemp').click(function (e) {
+        e.preventDefault()
+
+        $('#employees_list_display').html('<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>');
+        var status = $('#src_emp_by').val()
+        var college = $('#employee_structure_id').val()
+        var department = $('#employee_department_id').val()
+        var name = $('#employee_full_name').val()
+        var id_number = $('#employee_id_number').val()
+
+        $.ajax({
+            url: '/employees/load_filters',
+            data: {
+                status: status,
+                college: college,
+                department: department,
+                name: name,
+                id_number: id_number
+            },
+            async: false,
+            cache: true,
+
+            success: function (response) {
+
+                $("#employees_list_display").html(response);
+
+            }
+
+        });
+    });
+})

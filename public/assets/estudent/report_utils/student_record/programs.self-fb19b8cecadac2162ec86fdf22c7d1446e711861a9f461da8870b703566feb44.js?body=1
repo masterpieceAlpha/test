@@ -1,0 +1,23 @@
+$(function () {
+  var $selection = $("#_dept");
+  $selection.change(function () {
+    var department_id = $selection.val();
+    $.ajax({
+      url: "/estudent/student_record/load_program",
+      data: { department: department_id },
+      async: true,
+      cache: true,
+      beforeSend: function () {
+        $("#load_program").show();
+      },
+      error: function () {
+        $("#load_program").hide();
+      },
+      success: function (response) {
+        $("#programs").html(response);
+        $("#load_program").hide();
+      },
+    });
+  });
+  $("#load_program").hide();
+});

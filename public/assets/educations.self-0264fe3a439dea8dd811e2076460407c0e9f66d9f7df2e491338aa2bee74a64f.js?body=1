@@ -1,0 +1,20 @@
+$(function () {
+    if ($('#education_education_type').val('Higher Education')) {
+        $('#q').show()
+    }
+    else {
+        ('#q').hide()
+    }
+    $('#education_education_type').change(function () {
+        var type = $(this).val();
+        if (type == 'Higher Education') {
+            $('#q').show()
+            $('#education_qualification').val('')
+        } else {
+
+            $('#q').hide()
+        }
+    });
+
+
+})

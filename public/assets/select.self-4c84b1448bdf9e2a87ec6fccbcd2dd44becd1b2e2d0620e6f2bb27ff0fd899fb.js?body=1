@@ -1,0 +1,18 @@
+$(function () {
+
+
+    $("form select").select2({allowClear: true, placeholder: 'Please select'});
+    $("#list_students_s1 select").select2({allowClear: true});
+    $("#srch_student").select2({allowClear: true, placeholder: 'Please select'});
+
+    $("#checkbox").click(function () {
+        if ($("#checkbox").is(':checked')) {
+            $("form select> option").prop("selected", "selected");
+            $("form select").trigger("change");
+        } else {
+            $("form select > option").removeAttr("selected");
+            $("form select").trigger("change");
+        }
+    });
+
+});

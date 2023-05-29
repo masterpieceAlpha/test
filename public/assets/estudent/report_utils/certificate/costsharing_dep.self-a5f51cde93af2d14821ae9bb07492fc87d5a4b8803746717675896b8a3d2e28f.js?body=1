@@ -1,0 +1,24 @@
+$(function () {
+  var $selection = $("#_college");
+  $selection.change(function () {
+    var college = $selection.val();
+    $.ajax({
+      url: "/estudent/certificate/update_view",
+      data: { college: college },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#cp_dep").html(response);
+      },
+    });
+  });
+
+  $("#loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

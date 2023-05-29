@@ -1,0 +1,13 @@
+$(function () {
+  $("#penalty_student").autocomplete({
+    source: "/estudent/penalties/load_student",
+    minLength: 3,
+    change: function () {
+      $("loading_indicator").show();
+    },
+    select: function (event, ui) {
+      $("#penalty_student_id").val(ui.item.student_id);
+      $("loading_indicator").hide();
+    },
+  });
+});

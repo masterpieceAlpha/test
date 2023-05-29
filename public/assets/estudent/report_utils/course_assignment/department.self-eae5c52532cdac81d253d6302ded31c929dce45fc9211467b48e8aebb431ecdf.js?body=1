@@ -1,0 +1,24 @@
+$(function () {
+  var $selection = $("#_structure_id");
+  $selection.change(function () {
+    var structure_id = $selection.val();
+    $.ajax({
+      url: "/estudent/course_assignments/update_view",
+      data: { college: structure_id },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#department").html(response);
+      },
+    });
+  });
+
+  $("#loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

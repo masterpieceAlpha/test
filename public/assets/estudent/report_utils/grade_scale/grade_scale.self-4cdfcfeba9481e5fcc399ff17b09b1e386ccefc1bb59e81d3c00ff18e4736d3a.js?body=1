@@ -1,0 +1,42 @@
+$(function () {
+  $("#grade_scale_setting_grade_type_id").change(function () {
+    var grade_type_id = $(this).val();
+
+    $.ajax({
+      url: "/estudent/grade_scale_settings/grade_type",
+      data: { grade_type_id: grade_type_id },
+      cache: true,
+      async: false,
+      beforeSend: function () {
+        $("#gt_loading_indicator").show();
+      },
+      error: function () {
+        $("#gt_loading_indicator").hide();
+      },
+      success: function (response) {
+        $("#grade_scale").html(response);
+        $("#gt_loading_indicator").hide();
+      },
+    });
+  });
+  $("#strucure_grade_scale").change(function () {
+    var str = $(this).val();
+
+    $.ajax({
+      url: "/estudent/grade_scale_settings/filter_colleges",
+      data: { str: str },
+      cache: true,
+      async: false,
+      beforeSend: function () {
+        //$("#gt_loading_indicator").show()
+      },
+      error: function () {
+        //$("#gt_loading_indicator").hide();
+      },
+      success: function (response) {
+        $("#dep_grade").html(response);
+        //$("#gt_loading_indicator").hide();
+      },
+    });
+  });
+});

@@ -1,0 +1,21 @@
+$(function () {
+  $("#submit_applicant").click(function (e) {
+    e.preventDefault();
+
+    var declaration = $("#applicant_declaration").val();
+    var id = $("#id").val();
+    if (declaration == 1) {
+      $.ajax({
+        url: "/estudent/applicants/application_submission",
+        data: { id: id, declaration: declaration },
+        async: true,
+        cache: true,
+        success: function (response) {
+          $("#result").html(response);
+        },
+      });
+    } else {
+      alert("please accept declaration");
+    }
+  });
+});

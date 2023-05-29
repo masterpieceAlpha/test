@@ -1,0 +1,25 @@
+$(function () {
+  var program = $("#enrollment_history_progra");
+  var class_year = $("#enrollment_history_class_yea");
+  class_year.add(program).change(function () {
+    var program_id = program.val();
+    var class_year_id = class_year.val();
+    $.ajax({
+      url: "/estudent/students/load_section",
+      data: { program: program_id, class_year: class_year_id },
+      async: true,
+      cache: true,
+      beforeSend: function () {
+        $("#enrollment_history_indicator").show();
+      },
+      error: function () {
+        $("#enrollment_history_indicator").hide();
+      },
+      success: function (response) {
+        $("#enrollment_history_section").html(response);
+        $("#enrollment_history_indicator").hide();
+      },
+    });
+  });
+  $("#enrollment_history_indicator").hide();
+});

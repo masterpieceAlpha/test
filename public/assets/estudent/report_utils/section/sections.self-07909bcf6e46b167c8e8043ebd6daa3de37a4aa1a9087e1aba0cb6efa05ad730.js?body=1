@@ -1,0 +1,25 @@
+$(function () {
+  var $selection1 = $("#program_section_class_year_id");
+  var $selection2 = $("#program_section_program_id");
+  $selection2.change(function () {
+    var program_id = $selection1.val();
+    var class_year_id = $selection2.val();
+    $.ajax({
+      url: "/estudent/reports/list_sections",
+      data: { program_id: program_id, class_year_id: class_year_id },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#list_section").html(response);
+      },
+    });
+  });
+  $("#loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

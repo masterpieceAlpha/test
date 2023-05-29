@@ -1,0 +1,24 @@
+$(function () {
+  var $selection = $("#_colls_to_reg");
+  $selection.change(function () {
+    var structure_id = $selection.val();
+    $.ajax({
+      url: "/estudent/reports/regist_update_view",
+      data: { college: structure_id },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#regis_dept").html(response);
+      },
+    });
+  });
+
+  $("#registered_loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

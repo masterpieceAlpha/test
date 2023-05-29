@@ -1,0 +1,23 @@
+$(function () {
+  var $selection = $("#assessment_result_department_id");
+  $selection.change(function () {
+    var department = $selection.val();
+    $.ajax({
+      url: "/estudents/assessment_result/show_programs",
+      data: { department: department },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#list_programs").html(response);
+      },
+    });
+  });
+  $("#loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

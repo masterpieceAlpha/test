@@ -1,0 +1,21 @@
+(function() {
+  jQuery(function() {
+    var zones;
+    $('#contact_address_zone_id').parent().parent().hide();
+    zones = $('#contact_address_zone_id').html();
+    return $('#contact_address_region_id').change(function() {
+      var options, region;
+      region = $('#contact_address_region_id :selected').text();
+      options = $(zones).filter("optgroup[label='" + region + "']").html();
+      if (options) {
+        $('#contact_address_zone_id').html(options);
+        $('#contact_address_zone_id').prepend("<option value=''></option>").val('');
+        return $('#contact_address_zone_id').parent().parent().show();
+      } else {
+        $('#contact_address_zone_id').empty();
+        return $('#contact_address_zone_id').parent().parent().hide();
+      }
+    });
+  });
+
+}).call(this);

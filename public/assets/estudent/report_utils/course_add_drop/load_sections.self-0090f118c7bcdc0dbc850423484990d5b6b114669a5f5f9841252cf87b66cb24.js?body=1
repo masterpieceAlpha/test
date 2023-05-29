@@ -1,0 +1,27 @@
+/**
+ * Created by gyohannes on 11/23/16.
+ */
+
+$(function () {
+  $("#course_add_drop_course_assignment_id").change(function () {
+    var course_assignment = $(this).val();
+    $.ajax({
+      url: "/estudent/course_add_drop/load_assignment_sections",
+      data: { course_assignment: course_assignment },
+      cache: true,
+      async: false,
+      beforeSend: function () {
+        $("#sections_loading_indicator").show();
+      },
+      error: function () {
+        $("#sections_loading_indicator").hide();
+      },
+      success: function (response) {
+        $("#sections_display").html(response);
+        $("#sections_loading_indicator").hide();
+      },
+    });
+  });
+
+  $("#sections_loading_indicator").hide();
+});

@@ -1,0 +1,88 @@
+//Global setting and initializer
+
+$.extend($.fn.dataTable.defaults, {
+    responsive: true,
+    pagingType: 'full_numbers',
+    // dom:
+    // "<'row'<'col-sm-4 text-left'f><'right-action col-sm-8 text-right'<'buttons'B> <'select-info'> >>" +
+    // "<'row'<'dttb col-12 px-0'tr>>" +
+    // "<'row'<'col-sm-12 table-footer'lip>>"
+});
+
+
+$(document).on('preInit.dt', function (e, settings) {
+    var api, table_id, url;
+    api = new $.fn.dataTable.Api(settings);
+    table_id = "#" + api.table().node().id;
+    url = $(table_id).data('source');
+    if (url) {
+        return api.ajax.url(url);
+    }
+});
+
+
+// init on turbolinks load
+$(document).on('turbolinks:load', function () {
+    if (!$.fn.DataTable.isDataTable("table[id^=dttb-]")) {
+        $("table[id^=dttb-]").DataTable();
+    }
+});
+
+// turbolinks cache fix
+$(document).on('turbolinks:before-cache', function () {
+    var dataTable = $($.fn.dataTable.tables(true)).DataTable();
+    if (dataTable !== null) {
+        dataTable.clear();
+        dataTable.destroy();
+        return dataTable = null;
+    }
+});
+
+$(document).ready(function () {
+
+
+    $('#dataTable').addClass('table display nowrap responsive table-bordered table-striped').width('100%');
+
+    $('.dtable').addClass('table display nowrap responsive table-bordered table-striped').width('100%');
+
+    var table = $('.dtable').DataTable({
+        responsive: true,
+
+        select: true,
+
+        dom:
+       "<'row'<'text-left  col-sm-2 'l> <'col-sm-5' <'buttons'B> <'select-info'> ><'col-sm-5 right-action pull-right'f>>" +
+       "<'row'<'dttbc col-12 px-0'tr>>" +
+       "<'row'<'col-sm-12 table-footer'ip>>",
+       buttons: [
+            'excel', 'pdf', 'print'
+        ]
+    });
+
+    // new $.fn.dataTable.FixedHeader(table);
+
+
+   var table2 = $("#dataTable").dataTable({
+        responsive: true,
+        select: true,
+
+       dom:
+       "<'row'<'text-left  col-sm-2 'l> <'col-sm-5' <'buttons'B> <'select-info'> ><'col-sm-5 right-action pull-right'f>>" +
+       "<'row'<'dttbc col-12 px-0'tr>>" +
+       "<'row'<'col-sm-12 table-footer'ip>>",
+       buttons: [
+            'excel', 'pdf', 'print'
+        ]
+
+    });
+    // new $.fn.dataTable.FixedHeader(table2);
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $($.fn.dataTable.tables(true)).DataTable()
+            .columns.adjust()
+            .responsive.recalc();
+    });
+
+
+})
+

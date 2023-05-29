@@ -1,0 +1,68 @@
+$(function () {
+  function handleKeyDownEvent(eventRef) {
+    var charCode = window.event ? eventRef.keyCode : eventRef.which;
+
+    //alert(charCode);
+
+    // Arrow keys (37:left, 38:up, 39:right, 40:down)...
+    if (charCode == 40) {
+      if (window.event) window.event.keyCode = 9;
+      else event.which = 9;
+
+      return false;
+    }
+
+    return true;
+  }
+  $("#confirmation-message").dialog({
+    modal: true,
+    minWidth: 600,
+    dialogClass: "no-close",
+    buttons: [
+      {
+        text: "Ok",
+        click: function () {
+          $(this).dialog("close");
+        },
+      },
+    ],
+  });
+
+  $("a.remove_link").click(function () {
+    var to_hide = $("tr#row_" + this.id);
+    var prepare_for_destroy = "#destroy_" + this.id;
+    to_hide.hide();
+    prepare_for_destroy.value = true;
+
+    event.preventDefault();
+    return false;
+  });
+
+  $(".remove_field").click(function () {
+    $(this).prev("input[type=hidden]").val("1");
+    $(this).closest(".fields").hide();
+  });
+
+  //Menu tweaks
+  $("#side li").click(function (ev) {
+    $("#side li.selected").removeClass("selected");
+    $(this).addClass("selected");
+    //ev.preventDefault();
+  });
+
+  $("#admissionChooserControl").change(function (event) {
+    $("#productDetailPane").load("/jqia2/action/fetchProductDetails", $(this).serialize());
+    $("a[href^ = http://]").attr("target", "_blank");
+
+    // more to follow
+  });
+});
+
+// prevent a second click for 10 seconds. :)
+$(".prevent_doubleclick").on("click", function (e) {
+  $(e.target).click(do_nothing);
+  setTimeout(function () {
+    $(e.target).unbind("click", do_nothing);
+  }, 10000);
+});
+// P

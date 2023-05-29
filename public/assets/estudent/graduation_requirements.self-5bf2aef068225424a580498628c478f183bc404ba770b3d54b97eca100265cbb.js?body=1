@@ -1,0 +1,36 @@
+$(function () {
+  $("#course_title").autocomplete({
+    source: "/estudent/courses/load_courses",
+    minLength: 3,
+    change: function () {
+      $("#result").html(
+        '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+      );
+    },
+    select: function (event, ui) {
+      $("#graduation_requirement_course_id").val(ui.item.course_id);
+      $("result").hide();
+    },
+  });
+
+
+  $("#old_course").autocomplete({
+    source: "/estudent/courses/load_by_code",
+    minLength: 2,
+
+
+    select: function (event, ui) {
+      $("#z_old_course_id").val(ui.item.course_id);
+      $("result").hide();
+    },
+  });
+  $("#new_course").autocomplete({
+    source: "/estudent/courses/load_by_code",
+    minLength: 2,
+
+    select: function (event, ui) {
+      $("#z_new_course_id").val(ui.item.course_id);
+      $("result1").hide();
+    },
+  });
+});

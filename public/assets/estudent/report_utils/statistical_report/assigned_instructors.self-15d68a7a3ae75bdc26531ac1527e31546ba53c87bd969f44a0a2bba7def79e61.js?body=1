@@ -1,0 +1,36 @@
+$(function () {
+  var $selection = $("#assigned_ins_college");
+  $selection.change(function () {
+    var college = $selection.val();
+    $("#dep_cur_course").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    $.ajax({
+      url: "/estudent/reports/update_view",
+      data: { ins_college: college },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#dep_display").html(response);
+      },
+    });
+  });
+
+  $("#assigned_ins_department").change(function () {
+    $("#prog_display").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    var dep = $(this).val();
+    $.ajax({
+      url: "/estudent/reports/update_view",
+      data: { ins_department: dep },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#ays_display").html(response);
+      },
+    });
+  });
+});

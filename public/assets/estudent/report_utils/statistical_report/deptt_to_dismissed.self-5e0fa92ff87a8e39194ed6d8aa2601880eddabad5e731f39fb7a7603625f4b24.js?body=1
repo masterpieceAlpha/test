@@ -1,0 +1,24 @@
+$(function () {
+  var $selection = $("#_college_to_dismissed");
+  $selection.change(function () {
+    var college = $selection.val();
+    $.ajax({
+      url: "/estudent/reports/update_dep_dimissed_view",
+      data: { college: college },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#deptt_to_dismissed").html(response);
+      },
+    });
+  });
+
+  $("#dismissed_loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

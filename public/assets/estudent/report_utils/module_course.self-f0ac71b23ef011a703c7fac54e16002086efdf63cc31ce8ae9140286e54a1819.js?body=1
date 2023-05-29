@@ -1,0 +1,13 @@
+$(function () {
+  $("#coursem").autocomplete({
+    source: "/estudent/modulars/load_course",
+    minLength: 2,
+    change: function () {
+      $("loading_indicator").show();
+    },
+    select: function (event, ui) {
+      $("#module_course_course_id").val(ui.item.course_id);
+      $("loading_indicator").hide();
+    },
+  });
+});

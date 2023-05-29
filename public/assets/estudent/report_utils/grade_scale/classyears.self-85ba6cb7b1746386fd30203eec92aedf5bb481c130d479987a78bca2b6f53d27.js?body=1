@@ -1,0 +1,23 @@
+$(function () {
+  var $selection = $("#assessment_result_program_id");
+  $selection.change(function () {
+    var program_id = $selection.val();
+    $.ajax({
+      url: "/estudent/assessment_result/list_class_year",
+      data: { program_id: program_id },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#classyear").html(response);
+      },
+    });
+  });
+  $("#loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

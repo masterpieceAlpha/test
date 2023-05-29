@@ -1,0 +1,61 @@
+/**
+ * Created by Tamiru Hailu  on 6/1thing */
+
+$(function () {
+  $("#_dormitoy_college").change(function () {
+    $("#dorm_deps").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    $.ajax({
+      url: "/estudent/dormitory_placements/update_view",
+      data: { structure_id: $(this).val() },
+      success: function (response) {
+        $("#dorm_deps").html(response);
+      },
+    });
+  });
+
+  $("#block_change").change(function () {
+    $.ajax({
+      url: " /estudent/dormitory_placements/load_rooms",
+      data: {
+        block_id: $(this).val(),
+      },
+
+      success: function (response) {
+        $("#rooms_display").html(response);
+      },
+    });
+  });
+});
+
+$(function () {
+  $("#room_change").change(function () {
+    $.ajax({
+      url: " /estudent/dormitory_placements/load_beds",
+      data: {
+        room_id: $(this).val(),
+      },
+
+      success: function (response) {
+        $("#beds_display").html(response);
+      },
+    });
+  });
+});
+
+$(function () {
+  $("#program_placement_department_id").change(function () {
+    $.ajax({
+      url: " /estudent/dormitory_placements/load_programs",
+      data: {
+        department_id: $(this).val(),
+      },
+
+      success: function (response) {
+        $("#programs_display").html(response);
+      },
+    });
+  });
+});

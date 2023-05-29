@@ -1,0 +1,25 @@
+$(function () {
+  var program = $("#academic_status_program");
+  var class_year = $("#academic_status_class_year");
+  class_year.add(program).change(function () {
+    var program_id = program.val();
+    var class_year_id = class_year.val();
+    $.ajax({
+      url: "/estudent/students/load_section",
+      data: { program: program_id, class_year: class_year_id },
+      async: true,
+      cache: true,
+      beforeSend: function () {
+        $("#academic_status_indicator").show();
+      },
+      error: function () {
+        $("#academic_status_indicator").hide();
+      },
+      success: function (response) {
+        $("#academic_status_section").html(response);
+        $("#academic_status_indicator").hide();
+      },
+    });
+  });
+  $("#academic_status_indicator").hide();
+});

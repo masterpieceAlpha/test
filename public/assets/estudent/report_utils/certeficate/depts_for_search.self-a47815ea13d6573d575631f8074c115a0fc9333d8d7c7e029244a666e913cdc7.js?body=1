@@ -1,0 +1,24 @@
+$(function () {
+  var $selection = $("#_college_list");
+  $selection.change(function () {
+    var college = $selection.val();
+    $.ajax({
+      url: "/estudent/student_record/stud_rec_info_update_view",
+      data: { college: college },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#depts_for_search").html(response);
+      },
+    });
+  });
+
+  $("#dept_search_loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

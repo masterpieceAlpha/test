@@ -1,0 +1,19 @@
+$(function(){
+  var $selection=$("#_role");
+      $selection.change(function() {
+      var role = $selection.val();
+      $.ajax({
+        url: '/logs/load_users',
+        data: {role : role },
+        async: true,
+        cache: true,
+        success: function(response){
+          $("#audit_log_user").html(response);
+        }
+      });
+    })
+   $("#log_users_loading_indicator")
+    .hide()
+    .ajaxStart(function() { $(this).show(); })
+    .ajaxStop(function() { $(this).hide(); });
+  });

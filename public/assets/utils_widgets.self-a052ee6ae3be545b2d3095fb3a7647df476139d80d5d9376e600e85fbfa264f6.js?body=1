@@ -1,0 +1,74 @@
+//Miscellaneous widgets like text-boxes,
+$(function(){
+  //buttonize all links and input tags with submit types
+  // $("input:submit,.link_button").button();
+
+//Portlets
+$(".column").sortable({
+  connectWith: ".column"
+});
+
+$(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
+  .find(".portlet-header")
+  .addClass("ui-widget-header ui-corner-all")
+  .prepend("<span class='ui-icon ui-icon-circle-triangle-s'></span>")
+  .end()
+  .find(".portlet-content");
+
+$(".portlet-header .ui-icon").click(function() {
+  collapsible: falsew;
+  $(this).toggleClass("ui-icon-circle-triangle-s").toggleClass("ui-icon-circle-triangle-n");
+  $(this).parents(".portlet:last").find(".portlet-content").toggle();
+});
+//$(".column").sortable({
+//  connectWith: ".column"
+//});
+//$(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
+//                .find(".portlet-header")
+//                .addClass("ui-widget-header ui-corner-all")
+//                .prepend('<span style="margin-top:4px;margin-right:3px;" class="ui-icon ui-icon-circle-triangle-s"></span>')
+//                .end()
+//                .find(".portlet-content")
+//                .hide();
+//         $(".portlet-header .ui-icon").click(function() {
+//                $(this).toggleClass("ui-icon-circle-triangle-s");
+//                            $(this).parents(".portlet:first").find(".portlet-content").toggle();
+//                });
+
+
+$("#applicant_information_wrapper").tabs({});
+$("#tabs").tabs();
+
+$("#resizable").resizable({
+  ghost: true
+});
+
+
+//all the basic setups
+//$( "#new_dialog:ui-dialog" ).dialog( "destroy" );
+$("#new_dialog").addClass("ui-helper-clearfix");
+$("#new_dialog").dialog({
+  autoOpen: true,
+  autoHide: true,
+  title: $("#title").html(),
+  modal: true,
+  draggable: false ,
+  minWidth: 500
+
+});
+$(".ui-dialog-titlebar-close").click(function(){
+  history.back();
+});
+
+$("#dialog").dialog({
+  autoOpen: false,
+  show: "blind",
+  hide: "explode"
+});
+
+
+
+
+
+//EOF
+});

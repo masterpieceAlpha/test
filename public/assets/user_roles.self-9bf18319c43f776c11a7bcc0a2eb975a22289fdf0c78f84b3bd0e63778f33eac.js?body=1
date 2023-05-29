@@ -1,0 +1,45 @@
+$(function () {
+    $('.user-form .user_role').change(function () {
+        var $selection = $(this);
+        var role = $(this).val();
+        $.ajax({
+            url: '/admin/users/load_related',
+            data: {role: role},
+            cache: true,
+            async: true,
+            success: function (response) {
+                $selection.closest($('div').closest($('div').closest('td'))).next('td').html(response);
+            }
+        });
+
+    })
+
+    $('#search_type').change(function () {
+
+        var that = $(this).val();
+        $('#search_lbl').html(that)
+        $('#by_username').show()
+        //['Name', 'User Name', 'Student Id', 'Employee Id']
+
+    });
+    $('#user_search').click(function (e) {
+        e.preventDefault()
+        var search_type = $('#search_type').val()
+        var search_term = $('#user_user_name').val()
+        if (search_type == '' || search_term == '') {
+            $('user_logged_as').addClass('has-error')
+        }
+        else {
+            $.ajax({
+                url: '/admin/users/search_user',
+                data: {search_type: search_type, search_term: search_term},
+                cache: true,
+                async: true,
+                success: function (response) {
+                    $('#user_list').html(response);
+                }
+            });
+        }
+    });
+
+})

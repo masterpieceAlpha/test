@@ -1,0 +1,23 @@
+$(function () {
+  var $selection = $("#_department");
+  $selection.change(function () {
+    var department = $selection.val();
+    $.ajax({
+      url: "/estudent/reports/load_view",
+      data: { department: department },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#program").html(response);
+      },
+    });
+  });
+  $("#loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

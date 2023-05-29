@@ -1,0 +1,28 @@
+$(function () {
+  var $selection = $("#_col");
+
+  $selection.change(function () {
+    var college = $selection.val();
+    $.ajax({
+      url: "/estudent/calculate_gpa/update_view",
+      data: { college: college },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#dep").html(response);
+      },
+    });
+  });
+  $("#_department").change(function () {
+    var department = $(this).val();
+    $.ajax({
+      url: "/estudent/calculate_gpa/update_view",
+      data: { department: department },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#programs_list").html(response);
+      },
+    });
+  });
+});

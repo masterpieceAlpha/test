@@ -1,0 +1,12 @@
+$(function () {
+
+    $('.treeview-menu').each(function () {
+        var list = $(this).find('li a');
+        $(list.get().reverse()).each(function () {
+
+            $(this).prepend('<i class="fa fa-circle-o " aria-hidden="true"></i>');
+
+        });
+    })
+
+});

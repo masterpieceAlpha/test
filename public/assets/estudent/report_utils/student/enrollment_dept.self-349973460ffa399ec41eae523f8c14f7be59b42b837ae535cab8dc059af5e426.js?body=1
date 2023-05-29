@@ -1,0 +1,24 @@
+$(function () {
+  var $selection = $("#_col_list");
+  $selection.change(function () {
+    var college = $selection.val();
+    $.ajax({
+      url: "/estudent/students/enroll_update_view",
+      data: { college: college },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#enrollment_dept").html(response);
+      },
+    });
+  });
+
+  $("#enroll_loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

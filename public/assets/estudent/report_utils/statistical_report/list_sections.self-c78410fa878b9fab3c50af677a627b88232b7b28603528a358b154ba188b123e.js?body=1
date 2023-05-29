@@ -1,0 +1,41 @@
+$(function () {
+  var $selection1 = $("#assessment_result_class_year_id");
+  $selection1.change(function () {
+    var class_year_id = $selection1.val();
+    $.ajax({
+      url: "/estudent/reports/list_section_to_ro",
+      data: { class_year_id: class_year_id },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#sections").html(response);
+      },
+    });
+  });
+  $("#loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+
+  $("#reports_class_years").change(function () {
+    var class_year = $("#reports_class_years").val();
+    var program = $("#assessment_result_program_id").val();
+    var academic_semester = $("#assessment_result_academic_year_semester_id").val();
+
+    if (class_year != null && program != null && academic_semester != null) {
+      $.ajax({
+        url: "/estudent/assign_section/update_sections",
+        data: { classyear: class_year, program: program, academic_semester: academic_semester },
+        async: true,
+        cache: true,
+        success: function (response) {
+          $("#sections").html(response);
+        },
+      });
+    }
+  });
+});

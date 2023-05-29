@@ -1,0 +1,159 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ */
+
+
+trix-toolbar .trix-button-row .trix-button-group--file-tools, .trix-button--icon-code {
+  display: none;
+}
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url(glyphicons-halflings-regular.eot);
+    src: url(glyphicons-halflings-regular.eot?) format('embedded-opentype'),
+    url(glyphicons-halflings-regular.woff) format('woff'),
+    url(glyphicons-halflings-regular.ttf) format('truetype'),
+    url(glyphicons-halflings-regular.svg) format('svg');
+}
+
+.ui-widget-overlay{
+    background-color: black !important;
+    z-index: 10000 !important;
+    opacity: 0.7 !important;
+}
+.ui-dialog{
+    z-index: 10001 !important;
+}
+
+.ui-dialog-titlebar-close::after {
+    content: "x";
+    position: absolute;
+    line-height: 20px;
+    font-size: 20px;
+    bottom: 0;
+    right: 3px;
+}
+
+#dataTable_wrapper .row{
+    margin: 0 !important;
+}
+
+/*style for audit starts here*/
+.covid19{
+    color: #3c8dbc !important;
+}
+.tags {
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+
+.tags span {
+    display: inline-block;
+    margin: 2px 0;
+}
+
+.tags span a {
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    margin: 0 4px;
+    padding: 2px 8px 2px 3px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #3c8dbc;
+}
+
+.tags span a::before {
+    content: "\2771";
+    margin-right: 3px;
+}
+
+.tags span a:hover {
+    background-color: #565656;
+}
+
+/*style for audit ends here*/
+
+
+
+/*style for logo and sidebar starts here*/
+
+.skin-black-light .main-header .logo {
+    background-color: #ffffff;
+    color: #333333;
+    border-bottom: 0 solid transparent;
+    border-right: 1px solid #d2d6de;
+    height: 60px;
+}
+
+.sidebar {
+    padding-top: 10px;
+}
+
+.login_logo{
+    margin-top: 55px;
+}
+
+.navbar-nav li a{
+    border: none !important;
+}
+
+.sidebar-toggle{
+    border: none !important;
+}
+
+.date_field_tag{
+    line-height: 2em !important;
+}
+.sak-banner-error {
+    position: relative;
+    display: block;
+    margin: 16px 0;
+    padding: 16px;
+    border-left: calc(16px / 2) solid #cf4f16;
+    background-color: #f4dcd2;
+    color: #212121;
+}
+.sak-banner-info {
+    position: relative;
+    display: block;
+    margin: 16px 0;
+    padding: 16px;
+    border-left: calc( 16px / 2) solid #5c9bd1;
+    background-color: #bde5f8;
+    color: #212121;
+}
+/*style for logo and sidebar ends here*/

@@ -1,0 +1,119 @@
+$(function () {
+  var $selection = $("#acs_colleges");
+  $selection.change(function () {
+    var college = $selection.val();
+    $("#dep_cur_course").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    $.ajax({
+      url: "/estudent/reports/update_view",
+      data: { college: college },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#dep_cur_course").html(response);
+      },
+    });
+  });
+
+  $("#acs_department").change(function () {
+    $("#prog_display").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    var dep = $(this).val();
+    $.ajax({
+      url: "/estudent/reports/update_view",
+      data: { department_id: dep },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#prog_display").html(response);
+      },
+    });
+  });
+  $("#acs_program").change(function () {
+    if ($("#report_status").val() != "New") {
+      $("#class_yr_dispaly").html(
+        '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+      );
+
+      var prog = $(this).val();
+
+      $.ajax({
+        url: "/estudent/reports/update_view",
+        data: { program_id: prog, ay: $("#report_academic_year_semester_id").val() },
+        async: true,
+        cache: true,
+        success: function (response) {
+          $("#class_yr_dispaly").html(response);
+        },
+      });
+    }
+  });
+  $("#acs_class_years").change(function () {
+    $("#section_display").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    var class_year = $("#acs_class_years").val();
+    var program = $("#acs_program").val();
+    var academic_semester = $("#report_academic_year_semester_id").val();
+
+    if (class_year != null && program != null && academic_semester != null) {
+      $.ajax({
+        url: "/estudent/assign_section/update_sections",
+        data: { classyear: class_year, program: program, academic_semester: academic_semester },
+        async: true,
+        cache: true,
+        success: function (response) {
+          $("#section_display").html(response);
+        },
+      });
+    }
+  });
+
+  jQuery("#btn1").prop("disabled", true);
+
+  $("#report_program_id")
+    .add($("#report_curriculum_type"))
+    .change(function () {
+      var program_id = $("#report_program_id").val();
+      var curriculum_type = $("#report_curriculum_type").val();
+
+      if (program_id != "" && curriculum_type != "") {
+        $("#btn1").removeAttr("disabled");
+      } else {
+        jQuery("#btn1").prop("disabled", true);
+      }
+    });
+
+  $("#ebutton").click(function (e) {
+    e.preventDefault();
+    $("#students_list").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    var program_id = document.getElementById("c_course_prog").value;
+    var academic_year_semester_id = $("#report_academic_year_semester_id").val();
+    var class_year_id = $("#acs_class_years").val();
+    var section_id = $("#report_section_id").val();
+    var status = $("#report_status").val();
+    $.ajax({
+      url: "/estudent/reports/show_student_by_enrollment_status",
+      data: {
+        status: status,
+        program_id: program_id,
+        academic_year_semester_id: academic_year_semester_id,
+        class_year_id: class_year_id,
+        section_id: section_id,
+      },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#students_list").html(response);
+      },
+    });
+  });
+});

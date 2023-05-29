@@ -1,0 +1,25 @@
+$(function () {
+  var $selection = $("#assessment_result_class_year_id");
+  var $selection2 = $("#assessment_result_program_id");
+  $selection.change(function () {
+    var classyear = $selection.val();
+    var program = $selection2.val();
+    $.ajax({
+      url: "/estudent/assign_section/sec_load_view",
+      data: { classyear: classyear, program: program },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#sec").html(response);
+      },
+    });
+  });
+  $("#loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

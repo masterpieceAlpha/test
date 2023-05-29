@@ -1,0 +1,106 @@
+$(function () {
+    $('#audit_audit').click(function () {
+        $('#audit_view').html('<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-2x fa-fw margin-bottom"></i></div>');
+        $.ajax({
+            url: '/audits/load_audit',
+            method: 'post',
+            data: {
+                class_name: $("#audit_audit_class_name").val(),
+                action_name: $("#audit_audit_action").val(),
+                from: $("#audit_from").val(),
+                to: $("#audit_to").val()
+            },
+            async: true,
+            cache: true,
+            beforeSend: function () {
+                $("#loading").show();
+            },
+            error: function () {
+                $("#loading").hide();
+            },
+            success: function (response) {
+                // $("body").addClass("sidebar-collapse");
+                $("#audit_view").html(response);
+                $("#loading").hide();
+            }
+        });
+    })
+
+    $('#search_audit').click(function () {
+        $('#search_audit_view').html('<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-2x fa-fw margin-bottom"></i></div>');
+        $.ajax({
+            url: '/audits/load_search',
+            method: 'post',
+            data: {
+                action_name: $("#search_action").val(),
+                from: $("#search_from").val(),
+                to: $("#search_to").val(),
+                user: $("#search_user").val()
+            },
+            async: true,
+            cache: true,
+            beforeSend: function () {
+                $("#loading").show();
+            },
+            error: function () {
+                $("#loading").hide();
+            },
+            success: function (response) {
+                // $("body").addClass("sidebar-collapse");
+                $("#search_audit_view").html(response);
+                $("#loading").hide();
+            }
+        });
+    })
+
+    $('#student_audit').click(function () {
+        $('#student_audit_view').html('<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-2x fa-fw margin-bottom"></i></div>');
+        $.ajax({
+            url: '/audits/load_student',
+            method: 'post',
+            data: {
+                student: $("#student_student_id").val(),
+                action_name: $("#student_action").val(),
+                from: $("#student_from").val(),
+                to: $("#student_to").val()
+            },
+            async: true,
+            cache: true,
+            beforeSend: function () {
+                $("#loading").show();
+            },
+            error: function () {
+                $("#loading").hide();
+            },
+            success: function (response) {
+                // $("body").addClass("sidebar-collapse");
+                $("#student_audit_view").html(response);
+                $("#loading").hide();
+            }
+        });
+    })
+
+    $('#search_role').change(function () {
+        $('#filter_user').html('<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-2x fa-fw margin-bottom"></i></div>');
+        $.ajax({
+            url: '/audits/load_user',
+            method: 'post',
+            data: {
+                role: $("#search_role").val()
+            },
+            async: true,
+            cache: true,
+            beforeSend: function () {
+                $("#loading").show();
+            },
+            error: function () {
+                $("#loading").hide();
+            },
+            success: function (response) {
+                // $("body").addClass("sidebar-collapse");
+                $("#filter_user").html(response);
+                $("#loading").hide();
+            }
+        });
+    })
+});

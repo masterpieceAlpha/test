@@ -1,0 +1,25 @@
+/**
+ * Created by Tamiru Hailu  on 6/1thing */
+
+$(function () {
+  $("#advisor_program_id").change(function () {
+    $("#classy").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    var prg = $("#advisor_program_id").val();
+    var ays = $("#advisor_academic_year_semester_id").val();
+    if (ays !== "undefined" && ays !== "" && prg !== "undefined" && prg !== "") {
+      $.ajax({
+        url: " /estudent/advisors/update_view",
+        data: {
+          ays: ays,
+          prg: prg,
+        },
+        success: function (response) {
+          $("#classy").html(response);
+        },
+      });
+    }
+  });
+});

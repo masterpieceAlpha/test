@@ -1,0 +1,15 @@
+$(function () {
+  $("#ce_student").autocomplete({
+    source: "/estudent/theses/load_student",
+    minLength: 3,
+    change: function () {
+      $("#loading_indicator").html(
+        '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+      );
+    },
+    select: function (event, ui) {
+      $("#thesis_course_enrollment_id").val(ui.item.id);
+      $("loading_indicator").hide();
+    },
+  });
+});

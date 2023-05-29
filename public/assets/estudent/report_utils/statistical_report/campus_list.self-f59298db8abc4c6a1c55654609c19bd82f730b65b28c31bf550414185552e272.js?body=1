@@ -1,0 +1,24 @@
+$(function () {
+  var $selection = $("#campus_to_enrollment_status");
+  $selection.change(function () {
+    var campus_id = $selection.val();
+    $.ajax({
+      url: "/estudent/reports/new_campus_view",
+      data: { campus: campus_id },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#new_campus_list").html(response);
+      },
+    });
+  });
+
+  $("#campus_loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

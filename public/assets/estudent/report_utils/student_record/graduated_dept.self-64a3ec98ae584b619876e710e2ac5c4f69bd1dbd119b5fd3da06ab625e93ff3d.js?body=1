@@ -1,0 +1,24 @@
+$(function () {
+  var $selection = $("#_coll_to_senate");
+  $selection.change(function () {
+    var college = $selection.val();
+    $.ajax({
+      url: "/estudent/student_record/update_senate_view",
+      data: { college: college },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#graduated_dept").html(response);
+      },
+    });
+  });
+
+  $("#coll_to_senate_loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

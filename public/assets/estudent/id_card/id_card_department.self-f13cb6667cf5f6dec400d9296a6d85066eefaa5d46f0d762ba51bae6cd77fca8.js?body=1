@@ -1,0 +1,29 @@
+$(function () {
+  $("#id_card_college").change(function () {
+    var structure_id = $(this).val();
+
+    $.ajax({
+      url: "load_departments",
+      data: { structure_id: structure_id },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#id_card_departments").html(response);
+      },
+    });
+  });
+  $("#college_departments").change(function () {
+    var department_id = $("#college_departments").val();
+
+    $.ajax({
+      url: "load_programs_transfer",
+      data: { department_id: department_id },
+      async: true,
+      cache: true,
+
+      success: function (response) {
+        $("#list_programs").html(response);
+      },
+    });
+  });
+});

@@ -1,0 +1,33 @@
+$(function () {
+  $("#id_card_programs").change(function () {
+    var program_id = $(this).val();
+    var academic_semester = $("#id_card_academic_semester").val();
+    $.ajax({
+      url: "/estudent/id_card/load_class_years",
+      data: { program_id: program_id, academic_semester: academic_semester },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#list_class_years").html(response);
+      },
+    });
+  });
+  $("#icy").change(function () {
+    var program_id = $("#id_card_programs").val();
+    var class_year_id = $(this).val();
+    var academic_semester = $("#id_card_academic_semester").val();
+    $.ajax({
+      url: "/estudent/id_card/load_sections",
+      data: {
+        program_id: program_id,
+        academic_semester: academic_semester,
+        class_year_id: class_year_id,
+      },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#list_sections").html(response);
+      },
+    });
+  });
+});

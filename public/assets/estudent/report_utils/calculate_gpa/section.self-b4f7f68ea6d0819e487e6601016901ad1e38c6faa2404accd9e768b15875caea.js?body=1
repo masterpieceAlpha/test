@@ -1,0 +1,27 @@
+$(function () {
+  var $selection = $("#registration_class_year_id");
+  var $selection2 = $("#registration_program_id");
+  var $selection3 = $("#registration_academic_year_semester_id");
+  $selection.change(function () {
+    var classyear = $selection.val();
+    var program = $selection2.val();
+    var ays = $selection3.val();
+    $.ajax({
+      url: "/estudent/calculate_gpa/load_view",
+      data: { classyear: classyear, program: program, academic_year_semester_id: ays },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#section").html(response);
+      },
+    });
+  });
+  $("#loading_indicator")
+    .hide()
+    .ajaxStart(function () {
+      $(this).show();
+    })
+    .ajaxStop(function () {
+      $(this).hide();
+    });
+});

@@ -1,0 +1,18 @@
+$(function () {
+    nationality = $('#person_nationality').val();
+    nationality == 'ET' ? $('#ethnicity').show() : $('#ethnicity').hide()
+    $('#person_nationality').change(function () {
+        that = $(this).val()
+        if (that == 'ET') {
+            $('#ethnicity').show()
+        }
+        else {
+            $('#person_disablity').val(null);
+            $('#ethnicity').hide()
+
+
+        }
+    });
+
+})
+;

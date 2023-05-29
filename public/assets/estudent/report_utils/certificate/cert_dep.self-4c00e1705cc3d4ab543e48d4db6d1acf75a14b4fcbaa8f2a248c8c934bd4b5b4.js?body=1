@@ -1,0 +1,111 @@
+$(function () {
+  var $g = $("#gr_ays");
+  $g.change(function () {
+    $("#cert_str").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    var st = $g.val();
+    if (st !== "undefined" && st !== "") {
+      $.ajax({
+        url: "/estudent/certificate/update_view",
+        data: { ays: st },
+        async: true,
+        cache: true,
+        success: function (response) {
+          $("#cert_str").html(response);
+        },
+      });
+    }
+  });
+  var $s = $("#gr_college");
+  $s.change(function () {
+    $("#cert_dep").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    var st = $s.val();
+    $.ajax({
+      url: "/estudent/certificate/update_view",
+      data: { gr_college: st },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#cert_dep").html(response);
+      },
+    });
+  });
+  var $s2 = $("#gr_dept");
+
+  $s2.change(function () {
+    $("#cert_prog").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    var dep = $s2.val();
+    $.ajax({
+      url: "/estudent/certificate/update_view",
+      data: { gr_dep: dep },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#cert_prog").html(response);
+      },
+    });
+  });
+
+  var $selection = $("#cert_college");
+  $selection.change(function () {
+    $("#cert_dep").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    var structure_id = $selection.val();
+    $.ajax({
+      url: "/estudent/certificate/update_view",
+      data: { college: structure_id },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#cert_dep").html(response);
+      },
+    });
+  });
+  var $selection1 = $("#cert_dept");
+  $selection1.change(function () {
+    $("#cert_prog").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    var department = $selection1.val();
+    $.ajax({
+      url: "/estudent/certificate/update_view",
+      data: { department_id: department },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#cert_prog").html(response);
+      },
+    });
+  });
+
+  $("#cert_ays").hide();
+  $("#cert_gdate").hide();
+  $("#cert_id").show();
+
+  $("#cert_search_type").change(function () {
+    var option = $(this).val();
+
+    if (option !== "undefined" && option !== "") {
+      $.ajax({
+        url: "/estudent/certificate/update_view",
+        data: { option: option },
+        async: true,
+        cache: true,
+        success: function (response) {
+          $("#option1").html(response);
+        },
+      });
+    }
+  });
+});

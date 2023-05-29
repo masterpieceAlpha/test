@@ -1,0 +1,23 @@
+$(function () {
+  var $draggable = $("#draggable"),
+    $droppable = $("#droppable");
+  $("li", $draggable).draggable({
+    cancel: "a.ui-icon",
+    revert: "invalid",
+    helper: "clone",
+    cursor: "move",
+  });
+  $droppable.droppable({
+    accept: "#draggable > li",
+    activeClass: "ui-state-highlight",
+    drop: function (event, ui) {
+      $.ajax({
+        url: "/reports/list_columns",
+        data: { item: ui.draggable.html() },
+        success: function (response) {
+          $("#droppable").html(response);
+        },
+      });
+    },
+  });
+});

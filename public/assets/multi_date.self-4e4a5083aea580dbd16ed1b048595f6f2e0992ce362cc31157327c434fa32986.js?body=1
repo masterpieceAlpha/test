@@ -1,0 +1,63 @@
+/**
+ * Created by Tamiru Hailu on 12/20/16.
+ */
+
+
+
+$(".multi_date").calendarsPicker({
+    yearRange: "-150:+2",
+    changeMonth: true,
+    changeYear: true,
+    dateFormat: "yyyy-mm-dd"
+});
+
+$(".log_date_picker").datepicker({
+    dateFormat: "yy-m-d",
+    changeMonth: true,
+    changeYear: true,
+    showOtherMonths: true,
+    yearRange: "-100:+0"
+});
+
+$('#calendar').change(function () {
+    calendar = $.calendars.instance($(this).val());
+    var convert = function (value) {
+        return (!value || typeof value != 'object' ? value :
+            calendar.fromJD(value.toJD()));
+    };
+    $('.is-calendarsPicker').each(function () {
+        var current = $(this).calendarsPicker('option');
+        $(this).calendarsPicker('option', {
+            calendar: calendar,
+            onSelect: null, onChangeMonthYear: null,
+            defaultDate: convert(current.defaultDate),
+            minDate: convert(current.minDate),
+            maxDate: convert(current.maxDate)
+        }).calendarsPicker('option',
+            {
+                onSelect: current.onSelect,
+                onChangeMonthYear: current.onChangeMonthYear
+            });
+    });
+});
+$('#calendar2').change(function () {
+    calendar = $.calendars.instance($(this).val());
+    var convert = function (value) {
+        return (!value || typeof value != 'object' ? value :
+            calendar.fromJD(value.toJD()));
+    };
+    $('.is-calendarsPicker').each(function () {
+        var current = $(this).calendarsPicker('option');
+        $(this).calendarsPicker('option', {
+            calendar: calendar,
+            onSelect: null, onChangeMonthYear: null,
+            defaultDate: convert(current.defaultDate),
+            minDate: convert(current.minDate),
+            maxDate: convert(current.maxDate)
+        }).calendarsPicker('option',
+            {
+                onSelect: current.onSelect,
+                onChangeMonthYear: current.onChangeMonthYear
+            });
+    });
+});

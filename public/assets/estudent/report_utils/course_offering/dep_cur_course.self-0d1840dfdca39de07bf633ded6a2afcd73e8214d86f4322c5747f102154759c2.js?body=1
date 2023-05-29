@@ -1,0 +1,124 @@
+$(function () {
+  var $selection = $("#_colleges");
+  $selection.change(function () {
+    var college = $selection.val();
+    $("#dep_cur_course").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    $.ajax({
+      url: "/estudent/curriculum_courses/update_view",
+      data: { college: college },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#dep_cur_course").html(response);
+      },
+    });
+  });
+
+  $("#report_department_id").change(function () {
+    $("#prog_display").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    var dep = $(this).val();
+    $.ajax({
+      url: "/estudent/curriculum_courses/update_view",
+      data: { department_id: dep },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#prog_display").html(response);
+      },
+    });
+  });
+  $("#report_curriculum_type").change(function () {
+    $("#curriculums").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+    var program_id = $("#c_course_prog").val();
+    var curriculum_type = $("#report_curriculum_type").val();
+
+    var dep = $(this).val();
+    $.ajax({
+      url: "/estudent/curriculum_courses/update_view",
+      data: { prog: program_id, curriculum_type: curriculum_type },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $(".curriculums").html(response);
+      },
+    });
+  });
+
+  // jQuery("#btn1").prop("disabled", true);
+  //
+  // $('#report_program_id').add($('#report_curriculum_type')).change(function () {
+  //
+  //     var program_id = $('#report_program_id').val();
+  //     var curriculum_type = $('#report_curriculum_type').val();
+  //
+  //     if (program_id != '' && curriculum_type != '') {
+  //
+  //         $("#btn1").removeAttr('disabled');
+  //     }
+  //     else {
+  //         jQuery("#btn1").prop("disabled", true);
+  //     }
+  // });
+
+  $("#c_colleges").change(function () {
+    var college = $(this).val();
+    $("#c_dep_cur_course").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-2x fa-fw margin-bottom"></i></div>'
+    );
+
+    $.ajax({
+      url: "/estudent/curriculum_courses/update_view",
+      data: { c_college: college },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#c_dep_cur_course").html(response);
+      },
+    });
+  });
+
+  $("#c_department_id").change(function () {
+    $("#c_prog_display").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    var dep = $(this).val();
+    $.ajax({
+      url: "/estudent/curriculum_courses/update_view",
+      data: { c_department_id: dep },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#c_prog_display").html(response);
+      },
+    });
+  });
+
+  // jQuery("#btn2").prop("disabled", true);
+
+  $("#btn2").click(function (e) {
+    e.preventDefault();
+    $("#course_assignment_reult").html(
+      '<div style="text-align:center" ><i class="fa fa-spinner fa-spin fa-5x fa-fw margin-bottom"></i></div>'
+    );
+
+    var program_id = $("#c_program_id").val();
+    $.ajax({
+      url: "/estudent/course_assignments/show_assignments",
+      data: { program_id: program_id },
+      async: true,
+      cache: true,
+      success: function (response) {
+        $("#course_assignment_reult").html(response);
+      },
+    });
+  });
+});

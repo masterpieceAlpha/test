@@ -1,0 +1,28 @@
+
+
+
+// optional change '//' --> '//=' to enable
+
+// require datatables/extensions/AutoFill/dataTables.autoFill
+// require datatables/extensions/AutoFill/autoFill.bootstrap
+
+
+//= datatables/extensions/Buttons/buttons.bootstrap
+
+
+
+
+
+// require datatables/extensions/KeyTable/dataTables.keyTable
+
+//require datatables/extensions/RowGroup/dataTables.rowGroup
+// require datatables/extensions/RowReorder/dataTables.rowReorder
+
+// table tools
+
+
+
+
+
+
+
